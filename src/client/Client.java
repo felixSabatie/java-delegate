@@ -11,6 +11,9 @@ import java.util.Scanner;
 
 public class Client {
 
+//  https://stackoverflow.com/questions/6219829/method-to-dynamically-load-java-class-files
+//  https://stackoverflow.com/questions/2946338/how-do-i-programmatically-compile-and-instantiate-a-java-class
+
   Socket socket;
   InputStream in;
   OutputStream out;
