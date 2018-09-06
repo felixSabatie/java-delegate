@@ -26,7 +26,7 @@ public class Client {
     System.out.println("Sending basic request...");
     
     try {
-      out.write("test".getBytes(Charset.forName("UTF-8")));
+      out.write("test\n\r".getBytes(Charset.forName("UTF-8")));
       out.flush();
     } catch (IOException e) {
       System.out.println("Could not write to output stream");

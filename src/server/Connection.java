@@ -37,7 +37,7 @@ public class Connection implements Runnable {
     }
 
     try {
-      out.write("Hello client".getBytes(Charset.forName("UTF-8")));
+      out.write("Hello client\n\r".getBytes(Charset.forName("UTF-8")));
       out.flush();
     } catch (IOException e) {
       System.out.println("Could not write to output stream");
