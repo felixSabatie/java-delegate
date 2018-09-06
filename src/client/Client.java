@@ -1,24 +1,17 @@
 package client;
 
-import java.io.BufferedReader;
+import common.Connection;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.util.Scanner;
 
-public class Client {
+public class Client extends Connection {
 
 //  https://stackoverflow.com/questions/6219829/method-to-dynamically-load-java-class-files
 //  https://stackoverflow.com/questions/2946338/how-do-i-programmatically-compile-and-instantiate-a-java-class
 
-  Socket socket;
-  InputStream in;
-  OutputStream out;
-  BufferedReader reader;
-
+  @Override
   public void run() {
     initSocket();
     initStreams();
@@ -62,18 +55,6 @@ public class Client {
     }
   }
 
-  private void initStreams() {
-    try {
-      in = socket.getInputStream();
-      out = socket.getOutputStream();
-      reader = new BufferedReader(new InputStreamReader(in));
-    } catch (IOException e) {
-      System.out.println("Error during streams initialization");
-      closeConnection();
-      System.exit(2);
-    }
-  }
-
   private int getPortFromUser(Scanner keyboardScanner) {
     int port;
     boolean portIsValid;
@@ -96,18 +77,6 @@ public class Client {
       keyboardScanner.nextLine();
     }
     return keyboardScanner.nextInt();
-  }
-
-  private void closeConnection() {
-    try {
-      reader.close();
-      in.close();
-      out.close();
-      socket.close();
-    } catch (IOException e) {
-      System.out.println("Error while closing connections");
-      System.exit(5);
-    }
   }
 
 }

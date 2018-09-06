@@ -22,8 +22,8 @@ public class Server implements Runnable {
     while (!Thread.currentThread().isInterrupted()) {
       try {
         Socket socket = serverSocket.accept();
-        Connection connection = new Connection(socket);
-        new Thread(connection).start();
+        ServerConnection serverConnection = new ServerConnection(socket);
+        new Thread(serverConnection).start();
       } catch (Exception e) {
         e.printStackTrace();
       }
