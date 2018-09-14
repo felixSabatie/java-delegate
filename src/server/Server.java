@@ -10,7 +10,7 @@ public class Server implements Runnable {
 
   public Server() {
     try {
-      serverSocket = new ServerSocket(0);
+      serverSocket = new ServerSocket(9000);
     } catch (IOException e) {
       e.printStackTrace();
     }

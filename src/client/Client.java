@@ -2,6 +2,7 @@ package client;
 
 import common.Connection;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ public class Client extends Connection {
   public void run() {
     initSocket();
     initStreams();
-    sendBasicRequest();
+    sendFile();
   }
 
   private void sendBasicRequest() {
@@ -41,9 +42,26 @@ public class Client extends Connection {
     }
   }
 
+  private void sendFile() {
+    InputStream fileStream = Client.class.getResourceAsStream("test.txt");
+    byte[] buffer = new byte[4096];
+    int count;
+
+    try {
+      while((count = fileStream.read(buffer)) > 0) {
+        out.write(buffer, 0, count);
+      }
+      out.flush();
+    } catch (Exception e) {
+      System.out.println("An error occured while reading the file");
+      closeConnection();
+    }
+  }
+
   private void initSocket() {
     Scanner keyboardScanner = new Scanner(System.in);
-    int serverPort = getPortFromUser(keyboardScanner);
+//    int serverPort = getPortFromUser(keyboardScanner);
+    int serverPort = 9000;
 
     try {
       socket = new Socket("127.0.0.1", serverPort);
