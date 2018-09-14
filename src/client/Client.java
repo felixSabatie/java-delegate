@@ -1,5 +1,7 @@
 package client;
 
+import client.strategies.SourceColl;
+import client.strategies.Strategy;
 import common.Connection;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +11,9 @@ import java.util.Scanner;
 
 public class Client extends Connection {
 
+  Scanner keyboardScanner;
+  Strategy strategy;
+
 //  https://stackoverflow.com/questions/6219829/method-to-dynamically-load-java-class-files
 //  https://stackoverflow.com/questions/2946338/how-do-i-programmatically-compile-and-instantiate-a-java-class
 
@@ -16,7 +21,31 @@ public class Client extends Connection {
   public void run() {
     initSocket();
     initStreams();
-    sendFile();
+    keyboardScanner = new Scanner(System.in);
+    int choice =  chooseProtocol();
+    switch (choice) {
+      case 1:
+        strategy = new SourceColl(in, out, reader);
+        break;
+      case 2:
+        //TODO
+        System.out.println("Not implemented");
+        break;
+      case 3:
+        //TODO
+        System.out.println("Not implemented");
+        break;
+    }
+    try {
+      System.out.println("Executing...\n");
+      strategy.execute();
+      strategy.printResult();
+    } catch (IOException e) {
+      System.out.println("An error occured :");
+      e.printStackTrace();
+    }
+
+    System.out.println("\nDone");
   }
 
   private void sendBasicRequest() {
@@ -42,25 +71,7 @@ public class Client extends Connection {
     }
   }
 
-  private void sendFile() {
-    InputStream fileStream = Client.class.getResourceAsStream("test.txt");
-    byte[] buffer = new byte[4096];
-    int count;
-
-    try {
-      while((count = fileStream.read(buffer)) > 0) {
-        out.write(buffer, 0, count);
-      }
-      out.flush();
-    } catch (Exception e) {
-      System.out.println("An error occured while reading the file");
-      closeConnection();
-    }
-  }
-
   private void initSocket() {
-    Scanner keyboardScanner = new Scanner(System.in);
-//    int serverPort = getPortFromUser(keyboardScanner);
     int serverPort = 9000;
 
     try {
@@ -73,23 +84,25 @@ public class Client extends Connection {
     }
   }
 
-  private int getPortFromUser(Scanner keyboardScanner) {
-    int port;
-    boolean portIsValid;
-
-    System.out.println("Enter the server port");
+  private int chooseProtocol() {
+    System.out.println("Choose the protocol you want to use for the delegation :");
+    System.out.println("1: SOURCEColl");
+    System.out.println("2: BYTEColl");
+    System.out.println("3: OBJECTColl");
+    int choice;
+    boolean choiceIsValid;
     do {
-      port = getNumberFromUser(keyboardScanner);
-      portIsValid = port >= 0 && port <= 65535;
-      if(!portIsValid) {
-        System.out.println("Please enter a valid port");
+      choice = getNumberFromUser();
+      choiceIsValid = choice >= 1 && choice <= 3;
+      if(!choiceIsValid) {
+        System.out.println("Please enter a valid choice");
       }
-    } while(!portIsValid);
+    } while(!choiceIsValid);
 
-    return port;
+    return choice;
   }
 
-  private int getNumberFromUser(Scanner keyboardScanner) {
+  private int getNumberFromUser() {
     while(!keyboardScanner.hasNextInt()) {
       System.out.println("Please enter a number");
       keyboardScanner.nextLine();
