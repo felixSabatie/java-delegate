@@ -1,4 +1,4 @@
-package client.strategies;
+package server.strategies;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,13 +7,12 @@ import java.io.OutputStream;
 
 public class SourceColl extends Strategy {
 
-  public SourceColl(InputStream in, OutputStream out, BufferedReader reader) {
-    super(in, out, reader);
+  public SourceColl(InputStream in, OutputStream out, BufferedReader reader, String[] args) {
+    super(in, out, reader, args);
   }
 
   @Override
   public void execute() throws IOException {
-    sendRequest("SOURCEColl");
-    sendFile("test.txt");
+    receiveFile("test.txt");
   }
 }

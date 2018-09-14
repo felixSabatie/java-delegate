@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 public abstract class Strategy {
   protected InputStream in;
@@ -33,5 +34,16 @@ public abstract class Strategy {
       out.write(buffer, 0, count);
     }
     out.flush();
+  }
+
+  protected void sendRequest(String request) throws IOException {
+    System.out.println("Sending request...");
+
+    out.write((request + "\n\r").getBytes(Charset.forName("UTF-8")));
+    out.flush();
+
+    String response = reader.readLine();
+    System.out.println("Message received from server :");
+    System.out.println(response);
   }
 }

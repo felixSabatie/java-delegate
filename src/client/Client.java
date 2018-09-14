@@ -48,29 +48,6 @@ public class Client extends Connection {
     System.out.println("\nDone");
   }
 
-  private void sendBasicRequest() {
-    System.out.println("Sending basic request...");
-    
-    try {
-      out.write("test\n\r".getBytes(Charset.forName("UTF-8")));
-      out.flush();
-    } catch (IOException e) {
-      System.out.println("Could not write to output stream");
-      closeConnection();
-      System.exit(3);
-    }
-
-    try {
-      String response = reader.readLine();
-      System.out.println("Message received from server :");
-      System.out.println(response);
-    } catch (IOException e) {
-      System.out.println("Could not read from input stream");
-      closeConnection();
-      System.exit(4);
-    }
-  }
-
   private void initSocket() {
     int serverPort = 9000;
 
