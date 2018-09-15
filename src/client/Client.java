@@ -4,9 +4,7 @@ import client.strategies.SourceColl;
 import client.strategies.Strategy;
 import common.Connection;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Socket;
-import java.nio.charset.Charset;
 import java.util.Scanner;
 
 public class Client extends Connection {
@@ -22,10 +20,10 @@ public class Client extends Connection {
     initSocket();
     initStreams();
     keyboardScanner = new Scanner(System.in);
-    int choice =  chooseProtocol();
+    int choice = chooseProtocol();
     switch (choice) {
       case 1:
-        strategy = new SourceColl(in, out, reader);
+        strategy = new SourceColl(out, reader, writer);
         break;
       case 2:
         //TODO
@@ -71,16 +69,16 @@ public class Client extends Connection {
     do {
       choice = getNumberFromUser();
       choiceIsValid = choice >= 1 && choice <= 3;
-      if(!choiceIsValid) {
+      if (!choiceIsValid) {
         System.out.println("Please enter a valid choice");
       }
-    } while(!choiceIsValid);
+    } while (!choiceIsValid);
 
     return choice;
   }
 
   private int getNumberFromUser() {
-    while(!keyboardScanner.hasNextInt()) {
+    while (!keyboardScanner.hasNextInt()) {
       System.out.println("Please enter a number");
       keyboardScanner.nextLine();
     }

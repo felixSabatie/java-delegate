@@ -3,7 +3,6 @@ package server;
 import common.Connection;
 import java.io.IOException;
 import java.net.Socket;
-import java.nio.charset.Charset;
 import server.strategies.SourceColl;
 import server.strategies.Strategy;
 
@@ -32,7 +31,7 @@ public class ServerConnection extends Connection {
 
       switch (splittedRequest[0]) {
         case "SOURCEColl":
-          strategy = new SourceColl(in, out, reader, splittedRequest);
+          strategy = new SourceColl(in, reader, writer, splittedRequest);
           break;
         case "BYTEColl":
           //TODO
@@ -44,8 +43,8 @@ public class ServerConnection extends Connection {
           break;
       }
 
-      out.write("ACK\n\r".getBytes(Charset.forName("UTF-8")));
-      out.flush();
+      writer.println("ACK");
+      writer.flush();
 
       System.out.println("Executing request...\n");
       strategy.execute();

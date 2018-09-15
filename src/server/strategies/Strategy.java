@@ -5,24 +5,27 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.PrintWriter;
 
 public abstract class Strategy {
+
   protected InputStream in;
-  protected OutputStream out;
   protected BufferedReader reader;
+  protected PrintWriter writer;
   protected String[] args;
 
-  public Strategy(InputStream in, OutputStream out, BufferedReader reader, String[] args) {
+  public Strategy(InputStream in, BufferedReader reader, PrintWriter writer, String[] args) {
     this.in = in;
-    this.out = out;
     this.reader = reader;
+    this.writer = writer;
     this.args = args;
   }
 
   public abstract void execute() throws IOException;
 
   protected void receiveFile(String fileName) throws IOException {
+    System.out.println("Receiving file...");
+
     char fileSeparator = File.separator.charAt(0);
     String path = ("./src/server/client/" + fileName).replace('/', fileSeparator);
     File receivingFile = new File(path);
@@ -30,10 +33,13 @@ public abstract class Strategy {
 
     byte[] buffer = new byte[4096];
     int count;
-    while((count = in.read(buffer)) > 0) {
+    do {
+      count = in.read(buffer);
       fileOutputStream.write(buffer, 0, count);
-    }
+    } while (count == 4096);
     fileOutputStream.close();
+
+    System.out.println("File received");
   }
 
 }
