@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
 
 public class SourceColl extends Strategy {
 
@@ -20,15 +22,34 @@ public class SourceColl extends Strategy {
   public void execute() throws IOException {
     receiveFile("Calculator.java");
     try {
-      Class receivedClass = loadClass();
-      System.out.println(receivedClass);
+      compileClass();
       writer.println("result");
-      writer.flush();
-    } catch (ClassNotFoundException e) {
-      System.out.println("The class was not found");
+    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+      e.printStackTrace();
       writer.println("error");
+    } finally {
       writer.flush();
     }
+  }
+
+  private void compileClass()
+      throws MalformedURLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+    char fileSeparator = File.separator.charAt(0);
+    String path = ("./src/delegated/Calculator.java").replace('/', fileSeparator);
+    File classFile = new File(path);
+
+    String folderPath = ("./src/delegated").replace('/', fileSeparator);
+    File folder = new File(folderPath);
+
+    // Compile source file.
+    JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+    compiler.run(null, null, null, classFile.getPath());
+
+    // Load and instantiate compiled class.
+    URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { folder.toURL()});
+    Class<?> cls = Class.forName("delegated.Calculator", true, classLoader);
+    Object instance = cls.newInstance();
+    System.out.println(instance);
   }
 
   private Class loadClass() throws MalformedURLException, ClassNotFoundException {
