@@ -23,7 +23,7 @@ public abstract class Strategy {
   public abstract void execute() throws IOException;
 
   protected void receiveFile(String fileName) throws IOException {
-    File receivingFile = new File("./received-files/" + fileName);
+    File receivingFile = new File("./src/server/client/" + fileName);
     FileOutputStream fileOutputStream = new FileOutputStream(receivingFile);
 
     byte[] buffer = new byte[4096];

@@ -2,8 +2,8 @@
 .idea
 *.iml
 out
-received-files/*
-!received-files/.gitignore
+src/server/client/*
+src/server/client/.gitignore
 
 # Compiled class file
 *.class
