@@ -1,4 +1,4 @@
-package client;
+package delegated;
 
 public class Calculator {
 

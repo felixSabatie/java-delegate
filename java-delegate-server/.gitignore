@@ -2,8 +2,8 @@
 .idea
 *.iml
 out
-src/server/client/*
-src/server/client/.gitignore
+src/delegated/*
+src/delegated/.gitignore
 
 # Compiled class file
 *.class

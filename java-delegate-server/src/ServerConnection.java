@@ -1,10 +1,7 @@
-package server;
-
-import common.Connection;
 import java.io.IOException;
 import java.net.Socket;
-import server.strategies.SourceColl;
-import server.strategies.Strategy;
+import strategies.SourceColl;
+import strategies.Strategy;
 
 public class ServerConnection extends Connection {
 
@@ -24,7 +21,7 @@ public class ServerConnection extends Connection {
     System.out.println("Waiting for request...");
     try {
       String request = reader.readLine();
-      System.out.println("Message received from client :");
+      System.out.println("Message received from delegated :");
       System.out.println(request);
 
       String[] splittedRequest = request.split(" ");
@@ -51,6 +48,7 @@ public class ServerConnection extends Connection {
       System.out.println("Done\n");
     } catch (IOException e) {
       System.out.println("Could not read from input stream");
+      e.printStackTrace();
       closeConnection();
       System.exit(4);
     }

@@ -1,8 +1,5 @@
-package client;
-
-import client.strategies.SourceColl;
-import client.strategies.Strategy;
-import common.Connection;
+import strategies.SourceColl;
+import strategies.Strategy;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package client.strategies;
+package strategies;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,7 +31,7 @@ public abstract class Strategy {
     System.out.println("Sending file " + fileName + "...");
 
     char fileSeparator = File.separator.charAt(0);
-    String path = ("./src/client/" + fileName).replace('/', fileSeparator);
+    String path = ("./src/delegated/" + fileName).replace('/', fileSeparator);
     InputStream fileStream = new FileInputStream(new File(path));
     byte[] buffer = new byte[4096];
     int count;

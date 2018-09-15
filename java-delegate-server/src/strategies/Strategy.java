@@ -1,4 +1,4 @@
-package server.strategies;
+package strategies;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,7 +27,7 @@ public abstract class Strategy {
     System.out.println("Receiving file...");
 
     char fileSeparator = File.separator.charAt(0);
-    String path = ("./src/server/client/" + fileName).replace('/', fileSeparator);
+    String path = ("./src/delegated/" + fileName).replace('/', fileSeparator);
     File receivingFile = new File(path);
     FileOutputStream fileOutputStream = new FileOutputStream(receivingFile);
 

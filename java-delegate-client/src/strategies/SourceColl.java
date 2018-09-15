@@ -1,4 +1,4 @@
-package client.strategies;
+package strategies;
 
 import java.io.BufferedReader;
 import java.io.IOException;
