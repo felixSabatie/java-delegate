@@ -13,6 +13,6 @@ public class SourceColl extends Strategy {
 
   @Override
   public void execute() throws IOException {
-    receiveFile("test.txt");
+    receiveFile("Calculator.java");
   }
 }

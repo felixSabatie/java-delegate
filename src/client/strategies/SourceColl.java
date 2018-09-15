@@ -14,6 +14,6 @@ public class SourceColl extends Strategy {
   @Override
   public void execute() throws IOException {
     sendRequest("SOURCEColl");
-    sendFile("test.txt");
+    sendFile("Calculator.java");
   }
 }

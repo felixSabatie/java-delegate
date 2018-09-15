@@ -1,7 +1,8 @@
 package client.strategies;
 
-import client.Client;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -26,7 +27,9 @@ public abstract class Strategy {
   }
 
   protected void sendFile(String fileName) throws IOException {
-    InputStream fileStream = Client.class.getResourceAsStream(fileName);
+    char fileSeparator = File.separator.charAt(0);
+    String path = ("./src/client/" + fileName).replace('/', fileSeparator);
+    InputStream fileStream = new FileInputStream(new File(path));
     byte[] buffer = new byte[4096];
     int count;
 

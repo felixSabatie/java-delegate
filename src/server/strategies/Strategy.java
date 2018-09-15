@@ -23,7 +23,9 @@ public abstract class Strategy {
   public abstract void execute() throws IOException;
 
   protected void receiveFile(String fileName) throws IOException {
-    File receivingFile = new File("./src/server/client/" + fileName);
+    char fileSeparator = File.separator.charAt(0);
+    String path = ("./src/server/client/" + fileName).replace('/', fileSeparator);
+    File receivingFile = new File(path);
     FileOutputStream fileOutputStream = new FileOutputStream(receivingFile);
 
     byte[] buffer = new byte[4096];
@@ -31,6 +33,7 @@ public abstract class Strategy {
     while((count = in.read(buffer)) > 0) {
       fileOutputStream.write(buffer, 0, count);
     }
+    fileOutputStream.close();
   }
 
 }
