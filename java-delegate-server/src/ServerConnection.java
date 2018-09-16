@@ -21,7 +21,7 @@ public class ServerConnection extends Connection {
     System.out.println("Waiting for request...");
     try {
       String request = reader.readLine();
-      System.out.println("Message received from delegated :");
+      System.out.println("Message received from client :");
       System.out.println(request);
 
       String[] splittedRequest = request.split(" ");

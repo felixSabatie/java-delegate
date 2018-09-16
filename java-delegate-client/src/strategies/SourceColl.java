@@ -14,7 +14,7 @@ public class SourceColl extends Strategy {
 
   @Override
   public void execute() throws IOException {
-    sendRequest("SOURCEColl");
+    sendRequest("SOURCEColl Calculator add 16 24");
     sendFile("Calculator.java");
     result = reader.readLine();
   }
