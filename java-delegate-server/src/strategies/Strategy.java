@@ -38,7 +38,7 @@ public abstract class Strategy {
     System.out.println("Receiving file...");
 
     char fileSeparator = File.separator.charAt(0);
-    String path = ("./delegated/" + fileName).replace('/', fileSeparator);
+    String path = ("./from-client/delegated/" + fileName).replace('/', fileSeparator);
     File receivingFile = new File(path);
     FileOutputStream fileOutputStream = new FileOutputStream(receivingFile);
 
@@ -59,7 +59,7 @@ public abstract class Strategy {
     File classFile = new File(classPath);
 
     ClassLoader classLoader = new URLClassLoader(new URL[]{classFile.toURL()});
-    return classLoader.loadClass("delegated.Calculator");
+    return classLoader.loadClass("delegated." + className);
   }
 
   protected int getResult()
@@ -67,7 +67,12 @@ public abstract class Strategy {
     Class cls = loadClass();
     Object instance = cls.newInstance();
 
-    return (int) cls.getDeclaredMethod(methodName, new Class[]{int.class, int.class})
+    return getResult(instance);
+  }
+
+  protected int getResult(Object instance)
+      throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+    return (int) instance.getClass().getDeclaredMethod(methodName, new Class[]{int.class, int.class})
         .invoke(instance, firstParam, secondParam);
   }
 

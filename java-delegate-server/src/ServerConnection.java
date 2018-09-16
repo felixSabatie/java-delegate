@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.Socket;
 import strategies.ByteColl;
+import strategies.ObjectColl;
 import strategies.SourceColl;
 import strategies.Strategy;
 
@@ -35,8 +36,7 @@ public class ServerConnection extends Connection {
           strategy = new ByteColl(in, reader, writer, splittedRequest);
           break;
         case "OBJECTColl":
-          //TODO
-          System.out.println("Not implemented");
+          strategy = new ObjectColl(in, reader, writer, splittedRequest);
           break;
       }
 

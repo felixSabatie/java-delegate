@@ -1,3 +1,4 @@
+import delegated.ObjectColl;
 import strategies.ByteColl;
 import strategies.SourceColl;
 import strategies.Strategy;
@@ -24,8 +25,7 @@ public class Client extends Connection {
         strategy = new ByteColl(out, reader, writer);
         break;
       case 3:
-        //TODO
-        System.out.println("Not implemented");
+        strategy = new ObjectColl(out, reader, writer);
         break;
     }
     try {

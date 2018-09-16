@@ -35,7 +35,7 @@ public class SourceColl extends Strategy {
 
   private void compileClass() {
     char fileSeparator = File.separator.charAt(0);
-    String filePath = ("./delegated/" + className + ".java").replace('/', fileSeparator);
+    String filePath = ("./from-client/delegated/" + className + ".java").replace('/', fileSeparator);
     File classFile = new File(filePath);
 
     JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
