@@ -54,6 +54,7 @@ public abstract class Strategy {
   }
 
   protected Class loadClass() throws MalformedURLException, ClassNotFoundException {
+    System.out.println("Loading class...");
     String classPath = ("./").replace('/', File.separator.charAt(0));
     File classFile = new File(classPath);
 

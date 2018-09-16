@@ -27,11 +27,11 @@ public abstract class Strategy {
     System.out.println("Result : " + result);
   }
 
-  protected void sendFile(String fileName) throws IOException {
-    System.out.println("Sending file " + fileName + "...");
+  protected void sendFile(String filePath) throws IOException {
+    System.out.println("Sending file " + filePath + "...");
 
     char fileSeparator = File.separator.charAt(0);
-    String path = ("./src/delegated/" + fileName).replace('/', fileSeparator);
+    String path = (filePath).replace('/', fileSeparator);
     InputStream fileStream = new FileInputStream(new File(path));
     byte[] buffer = new byte[4096];
     int count;

@@ -1,3 +1,4 @@
+import strategies.ByteColl;
 import strategies.SourceColl;
 import strategies.Strategy;
 import java.io.IOException;
@@ -8,9 +9,6 @@ public class Client extends Connection {
 
   Scanner keyboardScanner;
   Strategy strategy;
-
-//  https://stackoverflow.com/questions/6219829/method-to-dynamically-load-java-class-files
-//  https://stackoverflow.com/questions/2946338/how-do-i-programmatically-compile-and-instantiate-a-java-class
 
   @Override
   public void run() {
@@ -23,8 +21,7 @@ public class Client extends Connection {
         strategy = new SourceColl(out, reader, writer);
         break;
       case 2:
-        //TODO
-        System.out.println("Not implemented");
+        strategy = new ByteColl(out, reader, writer);
         break;
       case 3:
         //TODO
