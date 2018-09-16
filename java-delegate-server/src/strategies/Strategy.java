@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Arrays;
 
 public abstract class Strategy {
 
@@ -37,7 +38,7 @@ public abstract class Strategy {
     System.out.println("Receiving file...");
 
     char fileSeparator = File.separator.charAt(0);
-    String path = ("./src/delegated/" + fileName).replace('/', fileSeparator);
+    String path = ("./delegated/" + fileName).replace('/', fileSeparator);
     File receivingFile = new File(path);
     FileOutputStream fileOutputStream = new FileOutputStream(receivingFile);
 
@@ -53,11 +54,11 @@ public abstract class Strategy {
   }
 
   protected Class loadClass() throws MalformedURLException, ClassNotFoundException {
-    String folderPath = ("./src/delegated/").replace('/', File.separator.charAt(0));
-    File folderFile = new File(folderPath);
+    String classPath = ("./").replace('/', File.separator.charAt(0));
+    File classFile = new File(classPath);
 
-    URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{folderFile.toURL()});
-    return Class.forName("delegated." + className, true, classLoader);
+    ClassLoader classLoader = new URLClassLoader(new URL[]{classFile.toURL()});
+    return classLoader.loadClass("delegated.Calculator");
   }
 
   protected int getResult()

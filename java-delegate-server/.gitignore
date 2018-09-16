@@ -2,8 +2,8 @@
 .idea
 *.iml
 out
-src/delegated/*
-src/delegated/.gitignore
+delegated/*
+delegated/.gitignore
 
 # Compiled class file
 *.class

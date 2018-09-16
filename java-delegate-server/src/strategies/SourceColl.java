@@ -24,7 +24,6 @@ public class SourceColl extends Strategy {
     try {
       compileClass();
       writer.println(getResult());
-
     } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
         | NoSuchMethodException | InvocationTargetException e) {
       e.printStackTrace();
@@ -36,10 +35,11 @@ public class SourceColl extends Strategy {
 
   private void compileClass() {
     char fileSeparator = File.separator.charAt(0);
-    String filePath = ("./src/delegated/Calculator.java").replace('/', fileSeparator);
+    String filePath = ("./delegated/" + className + ".java").replace('/', fileSeparator);
     File classFile = new File(filePath);
 
     JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-    compiler.run(null, null, null, classFile.getPath());
+    int returnCode = compiler.run(null, null, null, classFile.getPath());
+    System.out.println("Class compiled with code " + returnCode);
   }
 }
