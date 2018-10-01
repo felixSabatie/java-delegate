@@ -10,7 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
 
 public abstract class Strategy {
 
@@ -72,7 +71,8 @@ public abstract class Strategy {
 
   protected int getResult(Object instance)
       throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-    return (int) instance.getClass().getDeclaredMethod(methodName, new Class[]{int.class, int.class})
+    return (int) instance.getClass()
+        .getDeclaredMethod(methodName, new Class[]{int.class, int.class})
         .invoke(instance, firstParam, secondParam);
   }
 

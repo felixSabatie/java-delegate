@@ -1,11 +1,11 @@
 import exceptions.BadRequestException;
-import strategies.ObjectColl;
-import strategies.ByteColl;
-import strategies.SourceColl;
-import strategies.Strategy;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
+import strategies.ByteColl;
+import strategies.ObjectColl;
+import strategies.SourceColl;
+import strategies.Strategy;
 
 public class Client extends Connection {
 

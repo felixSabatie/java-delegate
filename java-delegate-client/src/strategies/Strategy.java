@@ -57,7 +57,7 @@ public abstract class Strategy {
     System.out.println("Message received from server :");
     System.out.println(response);
 
-    if(!response.equals("ACK")) {
+    if (!response.equals("ACK")) {
       throw new BadRequestException();
     }
   }

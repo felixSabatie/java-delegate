@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public abstract class Connection implements Runnable {
+
   protected Socket socket;
   protected BufferedReader reader;
   protected PrintWriter writer;

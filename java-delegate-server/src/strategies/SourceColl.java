@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 
@@ -35,7 +34,8 @@ public class SourceColl extends Strategy {
 
   private void compileClass() {
     char fileSeparator = File.separator.charAt(0);
-    String filePath = ("./from-client/delegated/" + className + ".java").replace('/', fileSeparator);
+    String filePath = ("./from-client/delegated/" + className + ".java")
+        .replace('/', fileSeparator);
     File classFile = new File(filePath);
 
     JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
