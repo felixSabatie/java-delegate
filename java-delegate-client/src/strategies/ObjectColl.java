@@ -1,14 +1,12 @@
-package delegated;
+package strategies;
 
+import delegated.Calculator;
+import exceptions.BadRequestException;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import strategies.Strategy;
 
 public class ObjectColl extends Strategy {
 
@@ -18,7 +16,7 @@ public class ObjectColl extends Strategy {
   }
 
   @Override
-  public void execute() throws IOException {
+  public void execute() throws IOException, BadRequestException {
     sendRequest("OBJECTColl Calculator add 16 24");
     sendObject(new Calculator());
     result = reader.readLine();

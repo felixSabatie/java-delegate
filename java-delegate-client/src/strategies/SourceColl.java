@@ -1,5 +1,6 @@
 package strategies;
 
+import exceptions.BadRequestException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,7 +14,7 @@ public class SourceColl extends Strategy {
   }
 
   @Override
-  public void execute() throws IOException {
+  public void execute() throws IOException, BadRequestException {
     sendRequest("SOURCEColl Calculator add 16 24");
     sendFile("./src/delegated/Calculator.java");
     result = reader.readLine();

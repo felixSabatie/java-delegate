@@ -1,4 +1,5 @@
-import delegated.ObjectColl;
+import exceptions.BadRequestException;
+import strategies.ObjectColl;
 import strategies.ByteColl;
 import strategies.SourceColl;
 import strategies.Strategy;
@@ -35,9 +36,12 @@ public class Client extends Connection {
     } catch (IOException e) {
       System.out.println("An error occured :");
       e.printStackTrace();
+    } catch (BadRequestException e) {
+      System.out.println("Bad request");
+    } finally {
+      System.out.println("\nDone");
+      closeConnection();
     }
-
-    System.out.println("\nDone");
   }
 
   private void initSocket() {

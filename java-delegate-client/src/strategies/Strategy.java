@@ -1,5 +1,6 @@
 package strategies;
 
+import exceptions.BadRequestException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,7 +22,7 @@ public abstract class Strategy {
     this.writer = writer;
   }
 
-  public abstract void execute() throws IOException;
+  public abstract void execute() throws IOException, BadRequestException;
 
   public void printResult() {
     System.out.println("Result : " + result);
@@ -44,7 +45,7 @@ public abstract class Strategy {
     System.out.println("File sent");
   }
 
-  protected void sendRequest(String request) throws IOException {
+  protected void sendRequest(String request) throws IOException, BadRequestException {
     System.out.println("Sending request...");
 
     writer.println(request);
@@ -53,5 +54,9 @@ public abstract class Strategy {
     String response = reader.readLine();
     System.out.println("Message received from server :");
     System.out.println(response);
+
+    if(!response.equals("ACK")) {
+      throw new BadRequestException();
+    }
   }
 }

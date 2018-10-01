@@ -28,24 +28,34 @@ public class ServerConnection extends Connection {
 
       String[] splittedRequest = request.split(" ");
 
-      switch (splittedRequest[0]) {
-        case "SOURCEColl":
-          strategy = new SourceColl(in, reader, writer, splittedRequest);
-          break;
-        case "BYTEColl":
-          strategy = new ByteColl(in, reader, writer, splittedRequest);
-          break;
-        case "OBJECTColl":
-          strategy = new ObjectColl(in, reader, writer, splittedRequest);
-          break;
+      try {
+        switch (splittedRequest[0]) {
+          case "SOURCEColl":
+            strategy = new SourceColl(in, reader, writer, splittedRequest);
+            break;
+          case "BYTEColl":
+            strategy = new ByteColl(in, reader, writer, splittedRequest);
+            break;
+          case "OBJECTColl":
+            strategy = new ObjectColl(in, reader, writer, splittedRequest);
+            break;
+        }
+
+        writer.println("ACK");
+        writer.flush();
+
+        System.out.println("Executing request...\n");
+        strategy.execute();
+      } catch (NumberFormatException e) {
+        writer.println("Wrong number format");
+        writer.flush();
+      } catch (ArrayIndexOutOfBoundsException e) {
+        writer.println("Not enough parameters");
+        writer.flush();
+      } finally {
+        System.out.println("Done\n");
+        closeConnection();
       }
-
-      writer.println("ACK");
-      writer.flush();
-
-      System.out.println("Executing request...\n");
-      strategy.execute();
-      System.out.println("Done\n");
     } catch (IOException e) {
       System.out.println("Could not read from input stream");
       e.printStackTrace();

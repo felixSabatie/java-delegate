@@ -1,5 +1,6 @@
 package strategies;
 
+import exceptions.BadRequestException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,9 +14,9 @@ public class ByteColl extends Strategy {
   }
 
   @Override
-  public void execute() throws IOException {
-    sendRequest("BYTEColl Calculator add 16 24");
-    sendFile("./out/production/java-delegate-client/delegated/Calculator.class");
+  public void execute() throws IOException, BadRequestException {
+    sendRequest("BYTEColl Calculator add 10 24");
+    sendFile("./to-server/Calculator.class");
     result = reader.readLine();
   }
 }
