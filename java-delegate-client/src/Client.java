@@ -18,15 +18,17 @@ public class Client extends Connection {
     initStreams();
     keyboardScanner = new Scanner(System.in);
     int choice = chooseProtocol();
+    System.out.println("Enter your request. Usage : add|substract number1 number2. Example : add 10 25");
+    String request = keyboardScanner.nextLine();
     switch (choice) {
       case 1:
-        strategy = new SourceColl(out, reader, writer);
+        strategy = new SourceColl(out, reader, writer, request);
         break;
       case 2:
-        strategy = new ByteColl(out, reader, writer);
+        strategy = new ByteColl(out, reader, writer, request);
         break;
       case 3:
-        strategy = new ObjectColl(out, reader, writer);
+        strategy = new ObjectColl(out, reader, writer, request);
         break;
     }
     try {
@@ -71,6 +73,7 @@ public class Client extends Connection {
         System.out.println("Please enter a valid choice");
       }
     } while (!choiceIsValid);
+    keyboardScanner.nextLine();
 
     return choice;
   }

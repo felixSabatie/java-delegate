@@ -15,11 +15,13 @@ public abstract class Strategy {
   protected PrintWriter writer;
   protected OutputStream out;
   protected String result;
+  protected String request;
 
-  public Strategy(OutputStream out, BufferedReader reader, PrintWriter writer) {
+  public Strategy(OutputStream out, BufferedReader reader, PrintWriter writer, String request) {
     this.out = out;
     this.reader = reader;
     this.writer = writer;
+    this.request = request;
   }
 
   public abstract void execute() throws IOException, BadRequestException;

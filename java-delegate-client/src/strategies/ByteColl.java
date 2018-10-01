@@ -8,14 +8,14 @@ import java.io.PrintWriter;
 
 public class ByteColl extends Strategy {
 
-  public ByteColl(OutputStream out, BufferedReader reader,
-      PrintWriter writer) {
-    super(out, reader, writer);
+  public ByteColl(OutputStream out, BufferedReader reader, PrintWriter writer,
+      String request) {
+    super(out, reader, writer, request);
   }
 
   @Override
   public void execute() throws IOException, BadRequestException {
-    sendRequest("BYTEColl Calculator add 10 24");
+    sendRequest("BYTEColl Calculator " + request);
     sendFile("./to-server/Calculator.class");
     result = reader.readLine();
   }

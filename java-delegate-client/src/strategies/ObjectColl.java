@@ -10,14 +10,14 @@ import java.io.PrintWriter;
 
 public class ObjectColl extends Strategy {
 
-  public ObjectColl(OutputStream out, BufferedReader reader,
-      PrintWriter writer) {
-    super(out, reader, writer);
+  public ObjectColl(OutputStream out, BufferedReader reader, PrintWriter writer,
+      String request) {
+    super(out, reader, writer, request);
   }
 
   @Override
   public void execute() throws IOException, BadRequestException {
-    sendRequest("OBJECTColl Calculator add 16 24");
+    sendRequest("OBJECTColl Calculator " + request);
     sendObject(new Calculator());
     result = reader.readLine();
   }
