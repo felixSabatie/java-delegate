@@ -3,7 +3,7 @@
 *.iml
 out
 from-client/delegated/*
-from-client/delegated/.gitignore
+!from-client/delegated/.gitkeep
 
 # Compiled class file
 *.class
